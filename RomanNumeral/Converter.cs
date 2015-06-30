@@ -8,6 +8,12 @@ namespace RomanNumeral
         {
             [Test]
             [TestCase(1, "I")]
+            [TestCase(5, "V")]
+            [TestCase(10, "X")]
+            [TestCase(50, "L")]
+            [TestCase(100, "C")]
+            [TestCase(500, "D")]
+            [TestCase(1000, "M")]
             public void Then_the_corresponding_integer_value_is_returned(int expectedResult, string romanNumeral)
             {
                 var actualResult = new RomanNumerator().ConvertFrom("I");
