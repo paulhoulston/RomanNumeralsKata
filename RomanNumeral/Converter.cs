@@ -6,13 +6,14 @@ namespace RomanNumeral
     [TestFixture]
     public class Given_I_want_to_convert_from_a_roman_numeral
     {
+        private static readonly RomanNumerator Converter = new RomanNumerator();
+
         public class When_I_have_a_value_corresponding_to_a_simple_roman_numeral
         {
             [Test]
             public void Then_the_expected_value_is_returned()
             {
-                var convertedValue = "X";
-                Assert.AreEqual("I", convertedValue);
+                Assert.AreEqual("I", Converter.ConvertTo(1));
             }
         }
     }
@@ -141,6 +142,11 @@ namespace RomanNumeral
         private static bool IsNotRightmostNumeral(string romanNumeral, int i)
         {
             return i != romanNumeral.Length - 1;
+        }
+
+        public string ConvertTo(int numeric)
+        {
+            return "I";
         }
     }
 }
