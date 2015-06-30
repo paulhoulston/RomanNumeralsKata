@@ -77,7 +77,6 @@ namespace RomanNumeral
                 Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
-
     }
 
     public class RomanNumerator
@@ -99,20 +98,23 @@ namespace RomanNumeral
             for (var i = romanNumeral.Length - 1; i >= 0; i--)
             {
                 var numericValue = _romanNumeralLookup[romanNumeral[i]];
-                if (i != romanNumeral.Length - 1)
-                {
-                    var previousNumeralValue = _romanNumeralLookup[romanNumeral[i + 1]];
-                    if (previousNumeralValue > numericValue)
-                        sum -= numericValue;
-                    else
-                        sum += numericValue;
-                }
-                else
-                {
-                    sum += numericValue;
-                }
+                sum = IsNotRightmostNumeral(romanNumeral, i) && IsSmallerThanNumeralToRight(romanNumeral, i, numericValue)
+                    ? sum - numericValue
+                    : sum + numericValue;
             }
             return sum;
+        }
+
+        private bool IsSmallerThanNumeralToRight(string romanNumeral, int i, int numericValue)
+        {
+            var previousNumeralValue = _romanNumeralLookup[romanNumeral[i + 1]];
+            var decrementValue = previousNumeralValue > numericValue;
+            return decrementValue;
+        }
+
+        private static bool IsNotRightmostNumeral(string romanNumeral, int i)
+        {
+            return i != romanNumeral.Length - 1;
         }
     }
 }
