@@ -10,10 +10,17 @@ namespace RomanNumeral
 
         public class When_I_have_a_value_corresponding_to_a_simple_roman_numeral
         {
-            [Test]
-            public void Then_the_expected_value_is_returned()
+            
+            [TestCase("I", 1)]
+            [TestCase("V", 5)]
+            [TestCase("X", 10)]
+            [TestCase("L", 50)]
+            [TestCase("C", 100)]
+            [TestCase("D", 500)]
+            [TestCase("M", 1000)]
+            public void Then_the_expected_value_is_returned(string expectedResult, int numeric)
             {
-                Assert.AreEqual("I", Converter.ConvertTo(1));
+                Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
         }
     }
