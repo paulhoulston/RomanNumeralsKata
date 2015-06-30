@@ -7,8 +7,11 @@ namespace RomanNumeral
 {
     public class Given_I_want_to_convert_a_roman_numeral
     {
+        private static readonly RomanNumerator Converter = new RomanNumerator();
+
         public class When_I_have_a_simple_roman_numeral
         {
+
             [TestCase(1, "I")]
             [TestCase(5, "V")]
             [TestCase(10, "X")]
@@ -18,8 +21,7 @@ namespace RomanNumeral
             [TestCase(1000, "M")]
             public void Then_the_corresponding_integer_value_is_returned(int expectedResult, string romanNumeral)
             {
-                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
-                Assert.AreEqual(expectedResult, actualResult);
+                Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
 
@@ -41,8 +43,7 @@ namespace RomanNumeral
             [TestCase(2000, "MM")]
             public void Then_the_value_is_one_more_than_the_first_numeral(int expectedResult, string romanNumeral)
             {
-                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
-                Assert.AreEqual(expectedResult, actualResult);
+                Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
 
@@ -61,8 +62,7 @@ namespace RomanNumeral
             [TestCase(900, "CM")]
             public void Then_the_value_of_the_first_is_decremented_by_one(int expectedResult, string romanNumeral)
             {
-                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
-                Assert.AreEqual(expectedResult, actualResult);
+                Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
     }
