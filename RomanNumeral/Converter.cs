@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace RomanNumeral
 {
@@ -16,7 +18,7 @@ namespace RomanNumeral
             [TestCase(1000, "M")]
             public void Then_the_corresponding_integer_value_is_returned(int expectedResult, string romanNumeral)
             {
-                var actualResult = new RomanNumerator().ConvertFrom("I");
+                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
                 Assert.AreEqual(expectedResult, actualResult);
             }
         }
@@ -24,9 +26,20 @@ namespace RomanNumeral
 
     public class RomanNumerator
     {
+        private readonly IDictionary<string, int> _romanNumeralLookup = new Dictionary<string, int>
+        {
+            {"I", 1},
+            {"V", 5},
+            {"X", 10},
+            {"L", 50},
+            {"C", 100},
+            {"D", 500},
+            {"M", 1000}
+        };
+
         public int ConvertFrom(string romanNumeral)
         {
-            return 1;
+            return _romanNumeralLookup[romanNumeral];
         }
     }
 }
