@@ -41,7 +41,21 @@ namespace RomanNumeral
             [TestCase(1001, "MI")]
             [TestCase(1010, "MX")]
             [TestCase(2000, "MM")]
-            public void Then_the_value_is_one_more_than_the_first_numeral(int expectedResult, string romanNumeral)
+            public void Then_value_is_incremented_by_the_prescribed_amount(int expectedResult, string romanNumeral)
+            {
+                Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
+            }
+        }
+
+        public class When_I_have_a_roman_numeral_post_fixed_by_a_multiple_roman_numeral_less_than_or_equal_to_the_proceeding_numeral
+        {
+            [TestCase(3, "III")]
+            [TestCase(7, "VII")]
+            [TestCase(16, "XVI")]
+            [TestCase(25, "XXV")]
+            [TestCase(75, "LXXV")]
+            [TestCase(76, "LXXVI")]
+            public void Then_value_is_incremented_by_the_prescribed_amount(int expectedResult, string romanNumeral)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
