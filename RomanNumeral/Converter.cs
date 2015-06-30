@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace RomanNumeral
@@ -115,15 +116,27 @@ namespace RomanNumeral
 
     public class RomanNumerator
     {
-        private readonly IDictionary<char, int> _romanNumeralLookup = new Dictionary<char, int>
+        private class NumeralMapping
         {
-            {'I', 1},
-            {'V', 5},
-            {'X', 10},
-            {'L', 50},
-            {'C', 100},
-            {'D', 500},
-            {'M', 1000}
+            public readonly char Numeral;
+            public readonly int Numeric;
+
+            public NumeralMapping(char numeral, int numeric)
+            {
+                Numeral = numeral;
+                Numeric = numeric;
+            }
+        }
+
+        private readonly IList<NumeralMapping> _romanNumerialMapping = new List<NumeralMapping>
+        {
+            new NumeralMapping('I',1),
+            new NumeralMapping('V',5),
+            new NumeralMapping('X',10),
+            new NumeralMapping('L',50),
+            new NumeralMapping('C',100),
+            new NumeralMapping('D',500),
+            new NumeralMapping('M',1000),
         };
 
         public int ConvertFrom(string romanNumeral)
@@ -131,7 +144,7 @@ namespace RomanNumeral
             var sum = 0;
             for (var i = romanNumeral.Length - 1; i >= 0; i--)
             {
-                var numericValue = _romanNumeralLookup[romanNumeral[i]];
+                var numericValue = _romanNumerialMapping.Single(item => item.Numeral.Equals(romanNumeral[i])).Numeric;
                 sum = IsNotRightmostNumeral(romanNumeral, i) && IsSmallerThanNumeralToRight(romanNumeral, i, numericValue)
                     ? sum - numericValue
                     : sum + numericValue;
@@ -139,9 +152,10 @@ namespace RomanNumeral
             return sum;
         }
 
-        private bool IsSmallerThanNumeralToRight(string romanNumeral, int i, int numericValue)
+
+        private bool IsSmallerThanNumeralToRight(string romanNumeral, int index, int numericValue)
         {
-            var previousNumeralValue = _romanNumeralLookup[romanNumeral[i + 1]];
+            var previousNumeralValue = _romanNumerialMapping.Single(item => item.Numeral.Equals(romanNumeral[index + 1])).Numeric;
             var decrementValue = previousNumeralValue > numericValue;
             return decrementValue;
         }
@@ -153,24 +167,7 @@ namespace RomanNumeral
 
         public string ConvertTo(int numeric)
         {
-            switch (numeric)
-            {
-                case 1:
-                    return "I";
-                case 5:
-                    return "V";
-                case 10:
-                    return "X";
-                case 50:
-                    return "L";
-                case 100:
-                    return "C";
-                case 500:
-                    return "D";
-                case 1000:
-                    return "M";
-            }
-            return string.Empty;
+            return _romanNumerialMapping.Single(i => i.Numeric.Equals(numeric)).Numeral.ToString();
         }
     }
 }
