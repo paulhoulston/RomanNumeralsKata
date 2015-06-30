@@ -77,6 +77,18 @@ namespace RomanNumeral
                 Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
+
+        public class When_I_have_an_assorted_selection_of_roman_numerals
+        {
+            [TestCase(1954, "MCMLIV")]
+            [TestCase(1990, "MCMXC")]
+            [TestCase(2014, "MMXIV")]
+            public void Then_they_are_converted_correctly(int expectedResult, string romanNumeral)
+            {
+                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
+                Assert.AreEqual(expectedResult, actualResult);
+            }
+        }
     }
 
     public class RomanNumerator
