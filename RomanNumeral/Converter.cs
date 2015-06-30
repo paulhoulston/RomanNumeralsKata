@@ -45,6 +45,16 @@ namespace RomanNumeral
                 Assert.AreEqual(expectedResult, actualResult);
             }
         }
+
+        public class When_I_have_a_roman_numeral_that_is_prefixed_by_a_single_I_numeral
+        {
+            [TestCase(4, "IV")]
+            public void Then_the_value_of_the_first_is_decremented_by_one(int expectedResult, string romanNumeral)
+            {
+                var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
+                Assert.AreEqual(expectedResult, actualResult);
+            }
+        }
     }
 
     public class RomanNumerator
