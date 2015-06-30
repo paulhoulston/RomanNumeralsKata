@@ -36,25 +36,20 @@ namespace RomanNumeral
 
     public class RomanNumerator
     {
-        private readonly IDictionary<string, int> _romanNumeralLookup = new Dictionary<string, int>
+        private readonly IDictionary<char, int> _romanNumeralLookup = new Dictionary<char, int>
         {
-            {"I", 1},
-            {"V", 5},
-            {"X", 10},
-            {"L", 50},
-            {"C", 100},
-            {"D", 500},
-            {"M", 1000}
+            {'I', 1},
+            {'V', 5},
+            {'X', 10},
+            {'L', 50},
+            {'C', 100},
+            {'D', 500},
+            {'M', 1000}
         };
 
         public int ConvertFrom(string romanNumeral)
         {
-            var sum = 0;
-            foreach (var numeral in romanNumeral)
-            {
-                sum += _romanNumeralLookup[numeral.ToString()];
-            }
-            return sum;
+            return romanNumeral.Sum(numeral => _romanNumeralLookup[numeral]);
         }
     }
 }
