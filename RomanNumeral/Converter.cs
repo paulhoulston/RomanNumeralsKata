@@ -26,6 +26,12 @@ namespace RomanNumeral
         public class When_I_have_a_roman_numeral_post_fixed_by_a_single_I_roman_numeral
         {
             [TestCase(2, "II")]
+            [TestCase(6, "VI")]
+            [TestCase(11, "XI")]
+            [TestCase(51, "LI")]
+            [TestCase(101, "CI")]
+            [TestCase(501, "DI")]
+            [TestCase(1001, "MI")]
             public void Then_the_value_is_one_more_than_the_first_numeral(int expectedResult, string romanNumeral)
             {
                 var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
