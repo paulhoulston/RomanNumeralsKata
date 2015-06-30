@@ -23,19 +23,22 @@ namespace RomanNumeral
             }
         }
 
-        public class When_I_have_a_roman_numeral_post_fixed_by_a_single_roman_numeral_less_than_itself
+        public class When_I_have_a_roman_numeral_post_fixed_by_a_single_roman_numeral_less_than_or_equal_to_the_first_numeral
         {
             [TestCase(2, "II")]
             [TestCase(6, "VI")]
             [TestCase(11, "XI")]
+            [TestCase(20, "XX")]
             [TestCase(51, "LI")]
             [TestCase(60, "LX")]
             [TestCase(101, "CI")]
             [TestCase(150, "CL")]
+            [TestCase(200, "CC")]
             [TestCase(501, "DI")]
             [TestCase(600, "DC")]
             [TestCase(1001, "MI")]
             [TestCase(1010, "MX")]
+            [TestCase(2000, "MM")]
             public void Then_the_value_is_one_more_than_the_first_numeral(int expectedResult, string romanNumeral)
             {
                 var actualResult = new RomanNumerator().ConvertFrom(romanNumeral);
