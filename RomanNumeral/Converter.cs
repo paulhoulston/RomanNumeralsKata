@@ -72,7 +72,19 @@ namespace RomanNumeral
 
         public int ConvertFrom(string romanNumeral)
         {
-            return romanNumeral.Sum(numeral => _romanNumeralLookup[numeral]);
+            var sum = 0;
+            for (var i = 0; i < romanNumeral.Length; i++)
+            {
+                var numeralValue = _romanNumeralLookup[romanNumeral[i]];
+                sum += numeralValue;
+
+                if (i < romanNumeral.Length - 1 && _romanNumeralLookup[romanNumeral[i + 1]] > numeralValue)
+                {
+                    sum *= -1;
+                }
+            }
+
+            return sum;
         }
     }
 }
