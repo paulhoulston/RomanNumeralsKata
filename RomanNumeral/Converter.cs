@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace RomanNumeral
 {
+    [TestFixture]
     public class Given_I_want_to_convert_a_roman_numeral
     {
         private static readonly RomanNumerator Converter = new RomanNumerator();
 
         public class When_I_have_a_simple_roman_numeral
         {
-
             [TestCase(1, "I")]
             [TestCase(5, "V")]
             [TestCase(10, "X")]
@@ -61,7 +59,7 @@ namespace RomanNumeral
             }
         }
 
-        public class When_I_have_a_roman_numeral_that_is_prefixed_by_a_single_numeral_less_than_the_first_numeral
+        public class When_I_have_a_roman_numeral_that_is_prefixed_by_a_single_numeral_less_than_the_trailing_numeral
         {
             [TestCase(4, "IV")]
             [TestCase(9, "IX")]
@@ -74,11 +72,12 @@ namespace RomanNumeral
             [TestCase(400, "CD")]
             [TestCase(999, "IM")]
             [TestCase(900, "CM")]
-            public void Then_the_value_of_the_first_is_decremented_by_one(int expectedResult, string romanNumeral)
+            public void Then_the_value_of_the_first_is_decremented_by_the_required_amount(int expectedResult, string romanNumeral)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertFrom(romanNumeral));
             }
         }
+
     }
 
     public class RomanNumerator
@@ -97,17 +96,22 @@ namespace RomanNumeral
         public int ConvertFrom(string romanNumeral)
         {
             var sum = 0;
-            for (var i = 0; i < romanNumeral.Length; i++)
+            for (var i = romanNumeral.Length - 1; i >= 0; i--)
             {
-                var numeralValue = _romanNumeralLookup[romanNumeral[i]];
-                sum += numeralValue;
-
-                if (i < romanNumeral.Length - 1 && _romanNumeralLookup[romanNumeral[i + 1]] > numeralValue)
+                var numericValue = _romanNumeralLookup[romanNumeral[i]];
+                if (i != romanNumeral.Length - 1)
                 {
-                    sum *= -1;
+                    var previousNumeralValue = _romanNumeralLookup[romanNumeral[i + 1]];
+                    if (previousNumeralValue > numericValue)
+                        sum -= numericValue;
+                    else
+                        sum += numericValue;
+                }
+                else
+                {
+                    sum += numericValue;
                 }
             }
-
             return sum;
         }
     }
