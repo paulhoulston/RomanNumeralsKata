@@ -4,6 +4,20 @@ using NUnit.Framework;
 namespace RomanNumeral
 {
     [TestFixture]
+    public class Given_I_want_to_convert_from_a_roman_numeral
+    {
+        public class When_I_have_a_value_corresponding_to_a_simple_roman_numeral
+        {
+            [Test]
+            public void Then_the_expected_value_is_returned()
+            {
+                var convertedValue = "X";
+                Assert.AreEqual("I", convertedValue);
+            }
+        }
+    }
+
+    [TestFixture]
     public class Given_I_want_to_convert_a_roman_numeral
     {
         private static readonly RomanNumerator Converter = new RomanNumerator();
