@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace RomanNumeral
@@ -48,7 +49,12 @@ namespace RomanNumeral
 
         public int ConvertFrom(string romanNumeral)
         {
-            return _romanNumeralLookup[romanNumeral];
+            var sum = 0;
+            foreach (var numeral in romanNumeral)
+            {
+                sum += _romanNumeralLookup[numeral.ToString()];
+            }
+            return sum;
         }
     }
 }
