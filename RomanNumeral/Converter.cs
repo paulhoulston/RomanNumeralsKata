@@ -174,7 +174,6 @@ namespace RomanNumeral
             new NumeralMapping("XD", 490),
             new NumeralMapping("ID", 499),
             new NumeralMapping("D", 500),
-            new NumeralMapping("M", 1000),
             new NumeralMapping("CM", 900),
             new NumeralMapping("LM", 950),
             new NumeralMapping("XM", 990),
@@ -187,7 +186,7 @@ namespace RomanNumeral
             var sum = 0;
             for (var i = romanNumeral.Length - 1; i >= 0; i--)
             {
-                var numericValue = _romanNumerialMapping.Single(item => item.Numeral[0].Equals(romanNumeral[i])).Numeric;
+                var numericValue = _romanNumerialMapping.Where(item => item.Numeral.Length == 1).Single(item => item.Numeral[0].Equals(romanNumeral[i])).Numeric;
                 sum = IsNotRightmostNumeral(romanNumeral, i) && IsSmallerThanNumeralToRight(romanNumeral, i, numericValue)
                     ? sum - numericValue
                     : sum + numericValue;
@@ -198,7 +197,7 @@ namespace RomanNumeral
 
         private bool IsSmallerThanNumeralToRight(string romanNumeral, int index, int numericValue)
         {
-            var previousNumeralValue = _romanNumerialMapping.Single(item => item.Numeral[0].Equals(romanNumeral[index + 1])).Numeric;
+            var previousNumeralValue = _romanNumerialMapping.Where(item => item.Numeral.Length == 1).Single(item => item.Numeral[0].Equals(romanNumeral[index + 1])).Numeric;
             var decrementValue = previousNumeralValue > numericValue;
             return decrementValue;
         }
