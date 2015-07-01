@@ -176,7 +176,20 @@ namespace RomanNumeral
 
         public string ConvertTo(int numeric)
         {
-            return _romanNumerialMapping.Single(i => i.Numeric.Equals(numeric)).Numeral.ToString();
+            var numeral = "";
+
+            for (var i = _romanNumerialMapping.Count-1;i>=0;i--)
+            {
+                var mapping = _romanNumerialMapping[i];
+
+                while(numeric/mapping.Numeric >= 1)
+                {
+                    numeral += mapping.Numeral;
+                    numeric -= mapping.Numeric;
+                }
+            }
+
+            return numeral;
         }
     }
 }
