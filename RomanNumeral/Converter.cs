@@ -25,16 +25,20 @@ namespace RomanNumeral
             }
         }
 
-        public class When_I_have_a_simple_roman_numeral_post_fixed_by_a_singe_I
+        public class When_I_have_a_roman_numeral_post_fixed_by_one_or_more_roman_numerals_which_are_smaller_than_or_equal_to_the_leading_numeral
         {
             [TestCase("II", 2)]
             [TestCase("VI", 6)]
             [TestCase("XI", 11)]
+            [TestCase("XX", 20)]
+            [TestCase("XVI", 16)]
             [TestCase("LI", 51)]
+            [TestCase("LX", 60)]
             [TestCase("CI", 101)]
             [TestCase("DI", 501)]
             [TestCase("MI", 1001)]
-            public void Then_the_value_is_one_more_than_the_simple_roman_numeral(string expectedResult, int numeric)
+            [TestCase("MDCI", 1601)]
+            public void Then_the_value_is_as_expected(string expectedResult, int numeric)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
