@@ -43,6 +43,15 @@ namespace RomanNumeral
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
         }
+
+        public class When_I_have_a_roman_numeral_prefixed_by_a_single_I
+        {
+            [TestCase("IV", 4)]
+            public void Then_the_value_is_decremented_by_one(string expectedResult, int numeric)
+            {
+                Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
+            }
+        }
     }
 
     [TestFixture]
