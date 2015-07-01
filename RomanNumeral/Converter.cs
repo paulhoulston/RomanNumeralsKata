@@ -28,6 +28,12 @@ namespace RomanNumeral
         public class When_I_have_a_simple_roman_numeral_post_fixed_by_a_singe_I
         {
             [TestCase("II", 2)]
+            [TestCase("VI", 6)]
+            [TestCase("XI", 11)]
+            [TestCase("LI", 51)]
+            [TestCase("CI", 101)]
+            [TestCase("DI", 501)]
+            [TestCase("MI", 1001)]
             public void Then_the_value_is_one_more_than_the_simple_roman_numeral(string expectedResult, int numeric)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
