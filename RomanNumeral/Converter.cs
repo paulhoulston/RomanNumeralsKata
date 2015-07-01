@@ -146,10 +146,10 @@ namespace RomanNumeral
     {
         private class NumeralMapping
         {
-            public readonly char Numeral;
+            public readonly string Numeral;
             public readonly int Numeric;
 
-            public NumeralMapping(char numeral, int numeric)
+            public NumeralMapping(string numeral, int numeric)
             {
                 Numeral = numeral;
                 Numeric = numeric;
@@ -158,13 +158,28 @@ namespace RomanNumeral
 
         private readonly IList<NumeralMapping> _romanNumerialMapping = new List<NumeralMapping>
         {
-            new NumeralMapping('I',1),
-            new NumeralMapping('V',5),
-            new NumeralMapping('X',10),
-            new NumeralMapping('L',50),
-            new NumeralMapping('C',100),
-            new NumeralMapping('D',500),
-            new NumeralMapping('M',1000),
+            new NumeralMapping("I", 1),
+            new NumeralMapping("IV", 4),
+            new NumeralMapping("V", 5),
+            new NumeralMapping("IX", 9),
+            new NumeralMapping("X", 10),
+            new NumeralMapping("XL", 40),
+            new NumeralMapping("IL", 49),
+            new NumeralMapping("L", 50),
+            new NumeralMapping("XC", 90),
+            new NumeralMapping("IC", 99),
+            new NumeralMapping("C", 100),
+            new NumeralMapping("CD", 400),
+            new NumeralMapping("LD", 450),
+            new NumeralMapping("XD", 490),
+            new NumeralMapping("ID", 499),
+            new NumeralMapping("D", 500),
+            new NumeralMapping("M", 1000),
+            new NumeralMapping("CM", 900),
+            new NumeralMapping("LM", 950),
+            new NumeralMapping("XM", 990),
+            new NumeralMapping("IM", 999),
+            new NumeralMapping("M", 1000)
         };
 
         public int ConvertFrom(string romanNumeral)
@@ -172,7 +187,7 @@ namespace RomanNumeral
             var sum = 0;
             for (var i = romanNumeral.Length - 1; i >= 0; i--)
             {
-                var numericValue = _romanNumerialMapping.Single(item => item.Numeral.Equals(romanNumeral[i])).Numeric;
+                var numericValue = _romanNumerialMapping.Single(item => item.Numeral[0].Equals(romanNumeral[i])).Numeric;
                 sum = IsNotRightmostNumeral(romanNumeral, i) && IsSmallerThanNumeralToRight(romanNumeral, i, numericValue)
                     ? sum - numericValue
                     : sum + numericValue;
@@ -183,7 +198,7 @@ namespace RomanNumeral
 
         private bool IsSmallerThanNumeralToRight(string romanNumeral, int index, int numericValue)
         {
-            var previousNumeralValue = _romanNumerialMapping.Single(item => item.Numeral.Equals(romanNumeral[index + 1])).Numeric;
+            var previousNumeralValue = _romanNumerialMapping.Single(item => item.Numeral[0].Equals(romanNumeral[index + 1])).Numeric;
             var decrementValue = previousNumeralValue > numericValue;
             return decrementValue;
         }
@@ -197,11 +212,11 @@ namespace RomanNumeral
         {
             var numeral = "";
 
-            for (var i = _romanNumerialMapping.Count-1;i>=0;i--)
+            for (var i = _romanNumerialMapping.Count - 1; i >= 0; i--)
             {
                 var mapping = _romanNumerialMapping[i];
 
-                while(numeric/mapping.Numeric >= 1)
+                while (numeric/mapping.Numeric >= 1)
                 {
                     numeral += mapping.Numeral;
                     numeric -= mapping.Numeric;
