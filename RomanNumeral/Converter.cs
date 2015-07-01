@@ -24,6 +24,15 @@ namespace RomanNumeral
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
         }
+
+        public class When_I_have_a_simple_roman_numeral_post_fixed_by_a_singe_I
+        {
+            [TestCase("II", 2)]
+            public void Then_the_value_is_one_more_than_the_simple_roman_numeral(string expectedResult, int numeric)
+            {
+                Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
+            }
+        }
     }
 
     [TestFixture]
