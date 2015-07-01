@@ -49,10 +49,23 @@ namespace RomanNumeral
             [TestCase("IV", 4)]
             [TestCase("IX", 9)]
             [TestCase("IV", 4)]
-            [TestCase("IC", 99)]
+            [TestCase("XL", 40)]
+            [TestCase("XCIX", 99)]
             [TestCase("XC", 90)]
-            [TestCase("IM", 999)]
+            [TestCase("CMXCIX", 999)]
             public void Then_the_value_is_decremented_by_the_leading_value(string expectedResult, int numeric)
+            {
+                Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
+            }
+        }
+
+
+        public class When_I_have_an_assorted_selection_of_roman_numerals_to_convert
+        {
+            [TestCase("MCMLIV", 1954)]
+            [TestCase("MCMXC", 1990)]
+            [TestCase("MMXIV", 2014)]
+            public void Then_they_are_converted_correctly(string expectedResult, int numeric)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
@@ -169,20 +182,12 @@ namespace RomanNumeral
             new NumeralMapping("IX", 9),
             new NumeralMapping("X", 10),
             new NumeralMapping("XL", 40),
-            new NumeralMapping("IL", 49),
             new NumeralMapping("L", 50),
             new NumeralMapping("XC", 90),
-            new NumeralMapping("IC", 99),
             new NumeralMapping("C", 100),
             new NumeralMapping("CD", 400),
-            new NumeralMapping("LD", 450),
-            new NumeralMapping("XD", 490),
-            new NumeralMapping("ID", 499),
             new NumeralMapping("D", 500),
             new NumeralMapping("CM", 900),
-            new NumeralMapping("LM", 950),
-            new NumeralMapping("XM", 990),
-            new NumeralMapping("IM", 999),
             new NumeralMapping("M", 1000)
         };
 
@@ -220,13 +225,12 @@ namespace RomanNumeral
             {
                 var mapping = _romanNumerialMapping[i];
 
-                while (numeric/mapping.Numeric >= 1)
+                while (numeric / mapping.Numeric >= 1)
                 {
                     numeral += mapping.Numeral;
                     numeric -= mapping.Numeric;
                 }
             }
-
             return numeral;
         }
     }
