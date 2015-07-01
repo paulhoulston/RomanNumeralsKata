@@ -44,10 +44,15 @@ namespace RomanNumeral
             }
         }
 
-        public class When_I_have_a_roman_numeral_prefixed_by_a_single_I
+        public class When_I_have_a_roman_numeral_prefixed_by_a_single_roman_numeral_less_than_itself
         {
             [TestCase("IV", 4)]
-            public void Then_the_value_is_decremented_by_one(string expectedResult, int numeric)
+            [TestCase("IX", 9)]
+            [TestCase("IV", 4)]
+            [TestCase("IC", 99)]
+            [TestCase("XC", 90)]
+            [TestCase("IM", 999)]
+            public void Then_the_value_is_decremented_by_the_leading_value(string expectedResult, int numeric)
             {
                 Assert.AreEqual(expectedResult, Converter.ConvertTo(numeric));
             }
